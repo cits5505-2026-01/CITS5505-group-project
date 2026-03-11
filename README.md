@@ -10,5 +10,6 @@ Group project for CITS5505 Semester 1 - 2026
 | 24350939 | Jianing Wang | zhazha-1004 |
 
 ## How to launch
+This is a conflict.
 
 ## How to run the tests
