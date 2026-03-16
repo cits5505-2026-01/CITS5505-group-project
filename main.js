@@ -14,8 +14,8 @@ function loadPageByHash() {
 }
 
 function selectPage(page) {
-    $('#main-content').load('src/pages/' + page + '.page.html');
-    $('#main-content').removeClass().addClass(page);
+    $('main').load('src/pages/' + page + '.page.html');
+    $('main').removeClass().addClass(page);
     $('.navbar .nav-item').removeClass('active');
     $('.navbar .link-nav-' + page).parent().addClass('active');
 }
