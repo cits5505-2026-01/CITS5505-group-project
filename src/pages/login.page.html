@@ -1,8 +1,46 @@
 <link rel="stylesheet" href="src/pages/login.page.css">
-This is login page. 
-<br>
-Task: Implement  login page with following points:
-<ul>
-    <li>Display login form</li>
-    <li>Handle login functionality</li>
-</ul>
+<div class="auth-page">
+    <div class="auth-card">
+      <div class="brand">
+        <h1>SkillSwap</h1>
+        <p>Learn, share, and connect.</p>
+      </div>
+
+      <div class="tab-buttons">
+        <button id="loginTab" class="tab-btn active" type="button">Login</button>
+        <button id="registerTab" class="tab-btn" type="button">Register</button>
+      </div>
+
+      <form id="loginForm" class="auth-form active">
+        <h2>Login</h2>
+
+        <label for="loginEmail">Email</label>
+        <input type="email" id="loginEmail" placeholder="Enter your email" required>
+
+        <label for="loginPassword">Password</label>
+        <input type="password" id="loginPassword" placeholder="Enter your password" required>
+
+        <button type="submit" class="submit-btn">Login</button>
+        <p id="loginMessage" class="message"></p>
+      </form>
+
+      <form id="registerForm" class="auth-form">
+        <h2>Register</h2>
+
+        <label for="registerName">Username</label>
+        <input type="text" id="registerName" placeholder="Choose a username" required>
+
+        <label for="registerEmail">Email</label>
+        <input type="email" id="registerEmail" placeholder="Enter your email" required>
+
+        <label for="registerPassword">Password</label>
+        <input type="password" id="registerPassword" placeholder="Create a password" required>
+
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="password" id="confirmPassword" placeholder="Confirm your password" required>
+
+        <button type="submit" class="submit-btn">Register</button>
+        <p id="registerMessage" class="message"></p>
+      </form>
+    </div>
+  </div>
