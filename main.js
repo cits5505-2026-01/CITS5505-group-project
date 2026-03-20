@@ -17,7 +17,7 @@ $(document).ready(function () {
 
     function selectComponent(hash) {
         for (let pattern of Object.keys(ROUTES)) {
-            let matcher = new RegExp(`^{pattern}$`);
+            let matcher = new RegExp(`^${pattern}$`);
             let match = hash.match(matcher)
             if (match) {
                 return ROUTES[pattern];
