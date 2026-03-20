@@ -1,10 +1,71 @@
 <link rel="stylesheet" href="src/pages/request.page.css">
-This is request page. 
-<br>
-Task: Implement  request page with following points:
-<ul>
-    <li>Display request details</li>
-    <li>For owner: Show offers for this request</li>
-    <li>Action for owner: Close request, Complete request, Accept/Reject offers</li>
-    <li>Action for non-owner: Offer to fulfill request</li>
-</ul>
+<div class="container py-3">
+    <div class="d-flex gap-3">
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-secondary">Edit</button>
+        </div>
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-secondary">Offer</button>
+        </div>
+
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-secondary">Close Request</button>
+            <button type="button" class="btn btn-secondary">Complete Request</button>
+        </div>
+    </div>
+    <div id="request" class="accordion mt-3">
+        <div class="accordion-item">
+            <h5 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseDetails" aria-expanded="true" aria-controls="collapseDetails">
+                    Details
+                </button>
+            </h5>
+            <div id="collapseDetails" class="accordion-collapse collapse show">
+                <div class="accordion-body">
+                    <div class="row">
+                        <div class="col-3">Status</div>
+                        <div class="col"><span app-data-value="status"></span></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-3">Owner</div>
+                        <div class="col"><a href="#users/{{owner.id}}" app-attr-value="href"><span
+                                    app-data-value="owner.name"></span></a></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-3">Request Skill</div>
+                        <div class="col"><span app-data-value="skill.name"></span> - <span
+                                app-data-value="level"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-3">Created</div>
+                        <div class="col"><span app-data-value="createdAt"></span></div>
+                    </div>
+                </div>
+            </div>
+            <h5 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseDescription" aria-expanded="true" aria-controls="collapseDescription">
+                    Description
+                </button>
+            </h5>
+            <div id="collapseDescription" class="accordion-collapse collapse show">
+                <div class="accordion-body">
+                    <span app-data-value="description"></span>
+                </div>
+            </div>
+            <h5 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseOffers" aria-expanded="true" aria-controls="collapseOffers">
+                    Offeres
+                </button>
+            </h5>
+            <div id="collapseOffers" class="accordion-collapse collapse show">
+                <div class="accordion-body">
+                    <div id="offers" class="d-flex gap-3"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
