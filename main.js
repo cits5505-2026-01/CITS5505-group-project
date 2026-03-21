@@ -19,3 +19,18 @@ $(document).ready(function () {
     $("footer").load("src/components/footer.component.html");
     $(window).on('hashchange load', router);
 });
+
+function showModal(modalName, callback) {
+    $.get(`src/modals/${modalName}.modal.html`).then((response) => {
+        const modalElement = $(response);
+        if (callback) {
+            modalElement.on('hide.bs.modal', callback);
+        }
+        modalElement.on('shown.bs.modal', () => {
+            $.getScript(`src/modals/${modalName}.modal.js`);
+        });
+        const modal = new bootstrap.Modal(modalElement);
+        modal.show();
+        
+    });
+}
