@@ -55,7 +55,85 @@ section {
     filter: brightness(0.95);
 }
 
-#advantages {
-    margin-top: 50px;
+#features {
     text-align: center;
+}
+
+/* Advantages Section */
+#advantages {
+    height: 40vh;
+    margin-top: 100px;
+    text-align: center;
+}
+
+#advantages h2 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+/* Customer Comments Section */
+#comments {
+    height: 60vh;
+    display: flex;
+    align-items: center;
+}
+
+#comments .container {
+    width: 100%;
+}
+
+.comment-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.comment-card {
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 600px;
+    height: 250px;
+    text-align: center;
+}
+
+.comment-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.comment-content .stars {
+    color: #ffc107;
+    font-size: 1.2rem;
+    margin-bottom: 50px;
+}
+
+.comment-content p {
+    font-style: italic;
+    margin-bottom: 0;
+}
+
+.comment-content cite {
+    font-weight: bold;
+    color: #6c757d;
+    margin-top: auto;
+}
+
+.prev-btn, .next-btn {
+    border: none;
+    background: transparent;
+    font-size: 1.5rem;
+    color: #007bff;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: background-color 0.2s;
+}
+
+.prev-btn:hover, .next-btn:hover {
+    background-color: #e9ecef;
 }
