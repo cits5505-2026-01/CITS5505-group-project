@@ -1,125 +1,53 @@
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+.login-page .card {
+  border-radius: 12px;
 }
 
-body {
-  font-family: Arial, sans-serif;
-  background: linear-gradient(135deg, #f3f4f6, #dbeafe);
-  min-height: 100vh;
+.login-page h2,
+.login-page h4 {
+  word-break: break-word;
 }
 
-.auth-page {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 24px;
-}
-
-.auth-card {
-  width: 100%;
-  max-width: 420px;
-  background: #ffffff;
-  border-radius: 16px;
-  padding: 32px 28px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
-}
-
-.brand {
-  text-align: center;
-  margin-bottom: 24px;
-}
-
-.brand h1 {
-  font-size: 32px;
-  color: #1d4ed8;
-  margin-bottom: 8px;
-}
-
-.brand p {
-  color: #6b7280;
-  font-size: 14px;
-}
-
-.tab-buttons {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 24px;
-}
-
-.tab-btn {
-  flex: 1;
-  padding: 12px;
-  border: 1px solid #d1d5db;
-  background: #f9fafb;
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 15px;
-  font-weight: 600;
-}
-
-.tab-btn.active {
-  background: #2563eb;
-  color: white;
-  border-color: #2563eb;
-}
-
-.auth-form {
+.login-page .auth-tab-input {
   display: none;
 }
 
-.auth-form.active {
-  display: block;
-}
-
-.auth-form h2 {
-  margin-bottom: 18px;
-  color: #111827;
-}
-
-.auth-form label {
-  display: block;
-  margin-bottom: 6px;
-  margin-top: 12px;
-  font-size: 14px;
-  color: #374151;
-}
-
-.auth-form input {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #d1d5db;
-  border-radius: 10px;
-  outline: none;
-  font-size: 14px;
-}
-
-.auth-form input:focus {
-  border-color: #2563eb;
-}
-
-.submit-btn {
-  width: 100%;
-  margin-top: 20px;
-  padding: 12px;
-  border: none;
-  border-radius: 10px;
-  background: #2563eb;
-  color: white;
-  font-size: 15px;
-  font-weight: 600;
+.login-page .auth-tab-btn {
+  display: inline-block;
+  padding: 0.375rem 0.75rem;
+  border: 1px solid #0d6efd;
+  border-radius: 0.375rem;
   cursor: pointer;
+  user-select: none;
 }
 
-.submit-btn:hover {
-  background: #1d4ed8;
+.login-page .auth-form {
+  display: none;
 }
 
-.message {
-  margin-top: 14px;
-  font-size: 14px;
-  text-align: center;
-  color: #dc2626;
+.login-page #loginTab:checked ~ .auth-forms .login-form {
+  display: block;
+}
+
+.login-page #registerTab:checked ~ .auth-forms .register-form {
+  display: block;
+}
+
+.login-page #loginTab:checked ~ .auth-tab-buttons label[for="loginTab"] {
+  background-color: #0d6efd;
+  color: #fff;
+}
+
+.login-page #loginTab:checked ~ .auth-tab-buttons label[for="registerTab"] {
+  background-color: transparent;
+  color: #0d6efd;
+}
+
+.login-page #registerTab:checked ~ .auth-tab-buttons label[for="registerTab"] {
+  background-color: #0d6efd;
+  color: #fff;
+}
+
+.login-page #registerTab:checked ~ .auth-tab-buttons label[for="loginTab"] {
+  background-color: transparent;
+  color: #0d6efd;
 }
