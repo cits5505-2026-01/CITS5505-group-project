@@ -1,9 +1,78 @@
 <link rel="stylesheet" href="src/pages/profile.page.css">
-This is Profile page. 
-<br>
-Task: Implement profile page with following points:
-<ul>
-    <li>Display user information</li>
-    <li>Allow users to update their profile details</li>
-    <li>Show user's skills (Allow CRUD operations), readonly if this is other user's profile</li>
-</ul>
+<section class="profile-page container py-4">
+    <div class="profile-shell">
+        <!-- Top area: profile pic, basic profile info, and action buttons -->
+        <div class="profile-header-row">
+            <div class="profile-pic-wrap">
+                <img id="profile-pic" class="profile-pic" src="" alt="User pic">
+            </div>
+            <div class="profile-main-meta">
+                <div class="profile-title-line">
+                    <h1 id="profile-nickname" class="profile-nickname mb-0"></h1>
+                    <span id="profile-view-badge" class="badge rounded-pill"></span>
+                </div>
+                <p id="profile-intro" class="profile-intro mb-0"></p>
+                <div id="profile-auth-tip" class="alert alert-warning py-2 px-3 mt-3 d-none" role="alert"></div>
+            </div>
+            <div class="profile-actions">
+                <button id="profile-edit-btn" class="btn btn-primary">Edit Profile</button>
+                <button id="profile-save-btn" class="btn btn-success d-none">Save</button>
+                <button id="profile-cancel-btn" class="btn btn-outline-secondary d-none">Cancel</button>
+            </div>
+        </div>
+
+        <!-- Edit form (hidden by default, shown in edit mode) -->
+        <form id="profile-edit-form" class="d-none" novalidate>
+            <div class="row g-3 mt-1">
+                <div class="col-md-6">
+                    <label for="edit-nickname" class="form-label">Nickname</label>
+                    <input id="edit-nickname" class="form-control" type="text" maxlength="30" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="edit-profile-pic-file" class="form-label">Profile Picture</label>
+                    <div class="profile-file-picker">
+                        <input id="edit-profile-pic-file" class="profile-file-input" type="file" accept="image/*">
+                        <button id="edit-profile-pic-trigger" class="btn btn-outline-primary" type="button">Choose Image</button>
+                        <span id="edit-profile-pic-name" class="profile-file-name">No file chosen</span>
+                    </div>
+                    <div class="form-text">Choose a local image for preview. Upload to server will be added with backend.</div>
+                </div>
+                <div class="col-12">
+                    <label for="edit-intro" class="form-label">Bio</label>
+                    <textarea id="edit-intro" class="form-control" rows="3" maxlength="200"></textarea>
+                </div>
+            </div>
+        </form>
+
+        <!-- Skills area: offer skills and learning goals -->
+        <div class="profile-skills-grid mt-4">
+            <!-- Skills this user can offer -->
+            <section class="skill-card">
+                <div class="skill-card-head">
+                    <h2 class="h5 mb-0">Skills I Have</h2>
+                </div>
+                <div id="offer-skills" class="skill-chip-list"></div>
+                <div id="offer-skill-editor" class="skill-editor d-none">
+                    <div class="input-group">
+                        <input id="offer-skill-input" type="text" class="form-control" placeholder="Add a skill you can offer">
+                        <button id="offer-skill-add" class="btn btn-outline-primary" type="button">Add</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Skills this user wants to learn -->
+            <section class="skill-card">
+                <div class="skill-card-head">
+                    <h2 class="h5 mb-0">Skills I Want To Learn</h2>
+                </div>
+                <div id="learn-skills" class="skill-chip-list"></div>
+                <div id="learn-skill-editor" class="skill-editor d-none">
+                    <div class="input-group">
+                        <input id="learn-skill-input" type="text" class="form-control" placeholder="Add a skill you want to learn">
+                        <button id="learn-skill-add" class="btn btn-outline-primary" type="button">Add</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</section>
