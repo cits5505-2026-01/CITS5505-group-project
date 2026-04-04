@@ -27,7 +27,7 @@ $(document).ready(function () {
             }
         }
         return {
-            route: ROUTES['home'],
+            route: { page: 'error-404', js: false },
         };
     }
     
@@ -55,8 +55,7 @@ $(document).ready(function () {
                     });
                     return;
                 }
-                $('main').removeClass().addClass(hash);
-                $.getScript('src/pages/' + hash + '.page.js');
+                $.getScript('src/pages/' + page + '.page.js');
             });
         }
         $('main').removeClass().addClass(page);
