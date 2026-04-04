@@ -122,6 +122,35 @@ class DataService {
         newDate.setDate(newDate.getDate() + days);
         return newDate;
     }
+
+    fetchData(obj, path) {
+        if (path.length === 0 || typeof (obj) !== typeof ({})) {
+            return obj;
+        }
+        const [field, ...rest] = path;
+        return this.fetchData(obj[field], rest);
+    }
+
+    fillDataValue(elementHtml, obj) {
+        const element = $(elementHtml);
+        element.find('[app-data-value]').get().forEach(element => {
+            const value = this.fetchData(obj, $(element).attr('app-data-value').split('.'));
+            $(element).text(value);
+        });
+        element.find('[app-attr-value]').get().forEach(childElement => {
+            const appAttrValue = $(childElement).attr('app-attr-value').split(',');
+            appAttrValue.forEach(attrName => {
+                $(childElement).attr(attrName, format($(childElement).attr(attrName), obj));
+            });
+        })
+        return element;
+    }
+
+    format(template, data) {
+        return template.replace(/{{([^}]+)}}/g, (match, key) => {
+            return this.fetchData(data, key.split('.'));
+        });
+    }
 }
 
 export const service = new DataService();

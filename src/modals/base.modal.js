@@ -12,7 +12,7 @@ export class BaseModal {
     }
 
     loadStyles() {
-        if (!$(`link[href="${this.cssPath}"]`).length) {
+        if (this.cssPath && !$(`link[href="${this.cssPath}"]`).length) {
             const link = $('<link />').attr('rel', 'stylesheet').attr('href', this.cssPath);
             $('head').append(link);
         }
