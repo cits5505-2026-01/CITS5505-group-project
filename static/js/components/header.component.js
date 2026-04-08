@@ -4,7 +4,7 @@ export class HeaderComponent {
     }
 
     template() {
-        return $.get(`src/components/header.component.html`);
+        return $.get(`components/header`);
     }
 
     async render() {
