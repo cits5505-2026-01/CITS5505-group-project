@@ -1,8 +1,9 @@
-from flask import Flask, render_template
+from flask import Flask, redirect, render_template, url_for
 
 app = Flask(__name__)
 
 @app.route("/")
+@app.route("/index.html")
 def index():
     return render_template('index.html')
 
@@ -18,6 +19,10 @@ def fetchComponent(component):
 @app.route("/modals/<modal>")
 def fetchModal(modal):
     return render_template(f'modals/{modal}.modal.html')
+
+@app.route("/<page>")
+def subpage(page):
+    return redirect(url_for('index', _anchor=page))
 
 # TODO Handle unexpected errors
 if __name__ == "__main__":
