@@ -1,6 +1,28 @@
 from flask import Flask, redirect, render_template, url_for
+from database import db
+from flask_migrate import Migrate
+# Import models here so Migrate can "see" them
+from models import User, UserSkill, Skill, Request, Offer 
+from flask_login import LoginManager
+from api.routes import api_bp
 
 app = Flask(__name__)
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db.init_app(app)
+
+app.register_blueprint(api_bp)
+migrate = Migrate(app, db, render_as_batch=True)
+
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+# This tells Flask-Login how to load a user from the ID stored in the session
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
 @app.route("/")
 @app.route("/index.html")
@@ -25,6 +47,3 @@ def subpage(page):
     return redirect(url_for('index', _anchor=page))
 
 # TODO Handle unexpected errors
-if __name__ == "__main__":
-    # In 2026, 'debug=True' is still your best friend for development
-    app.run(debug=True)
