@@ -29,7 +29,7 @@ class RequestPage {
 
         $(".request-status").addClass(`status-${this.request.status.toLowerCase()}`)
 
-        $.get('src/components/offer.component.html').then(offerHtml => {
+        $.get('components/offer').then(offerHtml => {
             this.request.offers.forEach((offer) => {
                 const offerer = offer.offerer;
                 $('#offers').append(this.fillDataValue(offerHtml, offerer));
@@ -45,7 +45,7 @@ class RequestPage {
     }
 
     template() {
-        return $.get(`src/pages/request.page.html`);
+        return $.get(`pages/request`);
     }
 
     fetchData(obj, path) {

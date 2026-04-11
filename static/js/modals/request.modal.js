@@ -2,7 +2,7 @@ import { BaseModal } from "./base.modal.js";
 
 export class RequestModal extends BaseModal {
     constructor(onSaveCallback) {
-        super('src/modals/request.modal.html', 'src/modals/request.modal.css', 'request-modal', onSaveCallback);
+        super('modals/request', 'static/css/modals/request.modal.css', 'request-modal', onSaveCallback);
         this.data = null;
     }
     

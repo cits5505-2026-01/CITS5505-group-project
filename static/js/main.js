@@ -1,4 +1,4 @@
-import { HeaderComponent } from './src/components/header.component.js';
+import { HeaderComponent } from './components/header.component.js';
 $(document).ready(function () {
     const ROUTES = {
         'login': {page: 'login', js: false},
@@ -12,7 +12,7 @@ $(document).ready(function () {
 
     const headerComponent = new HeaderComponent($('header'));
     headerComponent.render();
-    $("footer").load("src/components/footer.component.html");
+    $("footer").load("components/footer");
     $(window).on('hashchange load', router);
 
 
@@ -37,13 +37,13 @@ $(document).ready(function () {
         const routeInfo = selectComponent(hash);
         const page = routeInfo.route.page;
         if (routeInfo.route.js) {
-            import(`./src/pages/${page}.page.js`).then((module) => {
+            import(`./pages/${page}.page.js`).then((module) => {
                 const pageComponent = new module.Page($('main'), routeInfo.params);
                 pageComponent.render();
             });
         } else {
-            $('main').load('src/pages/' + page + '.page.html', function (response, status) {
-                $.getScript('src/pages/' + page + '.page.js');
+            $('main').load(`pages/${page}`, function (response, status) {
+                $.getScript('static/js/pages/' + page + '.page.js');
             });
         }
         $('main').removeClass().addClass(page);
