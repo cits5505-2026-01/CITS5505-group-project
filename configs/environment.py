@@ -12,7 +12,7 @@ def get_bool_env(name, default=False):
     return value.strip().lower() in {"1", "true", "yes", "on"}
 
 
-class Config:
+class Environment:
     SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI', 'sqlite:///database.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_ECHO = get_bool_env('SQLALCHEMY_ECHO', False)

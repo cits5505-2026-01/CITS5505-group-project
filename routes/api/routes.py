@@ -1,6 +1,6 @@
 from flask import Blueprint
-from api.users import users_bp
-from api.requests import requests_bp
+from routes.api.users import users_bp
+from routes.api.requests import requests_bp
 
 # Define the blueprint
 api_bp = Blueprint('api', __name__, url_prefix='/api')

@@ -2,58 +2,23 @@ import traceback
 
 from flask import Flask, current_app, redirect, render_template, request, url_for
 from werkzeug.exceptions import HTTPException
-from config import Config
-from database import db, ma
-from flask_migrate import Migrate
-# Import models here so Migrate can "see" them
-from models import User, UserSkill, Skill, Request, Offer 
-from flask_login import LoginManager
-from api.routes import api_bp
+from configs.environment import Environment
+import configs.database as database
+import configs.authentication as authentication1
+from routes.api.routes import api_bp
+from routes.views.routes import views_bp
 
 app = Flask(__name__)
-app.config.from_object(Config)
+app.config.from_object(Environment)
 
-# Setup database and migrations
-db.init_app(app)
-ma.init_app(app)
+database.init(app)
+authentication.init(app)
 
-# Set up Flask-Migrate
-migrate = Migrate(app, db, render_as_batch=True)
-
-# Set up Flask-Login
-login_manager = LoginManager()
-login_manager.init_app(app)
-# This tells Flask-Login how to load a user from the ID stored in the session
-@login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(int(user_id))
-
-# Register the API blueprint
+# Register blueprints
 app.register_blueprint(api_bp)
+app.register_blueprint(views_bp)
 
-# API to serve the frontend
-@app.route("/")
-@app.route("/index.html")
-def index():
-    return render_template('index.html')
-
-def render_fragment(section, name):
-    return render_template(f"{section}/{name}.{section[:-1]}.html")
-
-
-@app.route("/pages/<name>")
-@app.route("/components/<name>")
-@app.route("/modals/<name>")
-def render_section(name):
-    section = request.path.strip("/").split("/", 1)[0]
-    return render_fragment(section, name)
-
-@app.route("/<page>")
-def subpage(page):
-    return redirect(url_for('index', _anchor=page))
-
-
-# Global error handlers
+# Error handlers
 @app.errorhandler(404)
 def not_found(e):
     if request.path.startswith('/api/') or request.accept_mimetypes.accept_json:
