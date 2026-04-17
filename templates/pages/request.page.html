@@ -3,12 +3,14 @@
     <div class="page-back"><i class="bi bi-arrow-left"></i> Back</div>
     <div class="page-headline d-flex justify-content-between flex-wrap gap-3">
         <div class="flex-fill">
-            <div class="page-title"><span app-data-value="request.name">Learn React & Next.js from scratch</span></div>
+            <div class="page-title">
+                {{ request.title }}
+            </div>
             <div class="d-flex gap-4 align-items-center page-subtitle flex-wrap">
-                <div><i class="bi bi-person me-2"></i><span app-data-value="request.owner.name"></span></div>
-                <div><i class="bi bi-geo-alt me-2"></i><span app-data-value="request.owner.address">Melbourne, AU</span></div>
-                <div><i class="bi bi-calendar3 me-2"></i>Posted <span app-data-value="request.createdAtAsTime">March 20, 2026</span></div>
-                <div class="request-status"><span app-data-value="request.status"></span></div>
+                <div><i class="bi bi-person me-2"></i>{{ request.owner.name}}</div>
+                <div><i class="bi bi-geo-alt me-2"></i>{{ request.owner.address}}</div>
+                <div><i class="bi bi-calendar3 me-2"></i>Posted {{ request.created_at.strftime('%d/%m/%Y')  }}</div>
+                <div class="request-status status-{{ request.status.value|lower }}">{{ request.status.value }}</div>
             </div>
         </div>
         <div>
@@ -26,7 +28,7 @@
                 Request Details
             </div>
             <div class="item-body">
-                <span app-data-value="request.description">Description</span>
+                {{ request.description }}
             </div>
         </div>
         <div class="page-item">
@@ -35,17 +37,25 @@
             </div>
             <div class="item-body">
                 <div id="offering-skills" class="d-flex gap-2 flex-wrap">
+                    <div class="skill-chip">
+                        {{ request.owner_skill.skill.name}}
+                    </div>
                 </div>
-                <div class="mt-3"><span app-data-value="request.offering.message"></span></div>
+                <div class="mt-3">
+                    {{ request.message }}
+                </div>
             </div>
         </div>
         <div class="page-item">
             <div class="item-header">
-                Offers Received <span class="text-muted">(<span app-data-value="request.offers.length"></span>)</span>
+                Offers Received <span class="text-muted">({{ request.offers | length }})</span>
             </div>
             <div class="item-body">
                 <div class="offer-item">
                     <div id="offers" class="d-flex flex-column gap-3"></div>
+                    {% for offer in request.offers %}
+                        {% include 'components/offer.component.html' %}
+                    {% endfor %}
                 </div>
             </div>
         </div>
@@ -53,18 +63,18 @@
     <div class="page-right">
         <div class="page-item">
             <div class="item-header">
-                About <span app-data-value="request.owner.name"></span>
+                About {{ request.owner.name }}
             </div>
             <div class="item-body">
                 <div class="d-flex gap-3 align-items-center profile-info">
-                    <div class="mini-avatar avatar-48"><span app-data-value="request.owner.initial"></span></div>
+                    <div class="mini-avatar avatar-48">{{request.owner.name | get_initials}}</div>
                     <div class="flex-fill">
-                        <div class="profile-user"><span app-data-value="request.owner.name"></span></div>
-                        <div class="profile-address"><span app-data-value="request.owner.address">Melbourne, AU</span></div>
+                        <div class="profile-user">{{request.owner.name}}</div>
+                        <div class="profile-address">{{request.owner.address}}</div>
                     </div>
                 </div>
                 <div class="mt-2 profil-bio">
-                    <span app-data-value="request.owner.bio"></span>
+                    {{request.owner.bio}}
                 </div>
             </div>
         </div>
@@ -73,9 +83,9 @@
                 Session Preferences
             </div>
             <div class="item-body">
-                <div><i class="bi bi-camera-video me-2"></i><span app-data-value="request.format"></span></div>
-                <div><i class="bi bi-clock me-2"></i><span app-data-value="request.duration"></span></div>
-                <div><i class="bi bi-calendar me-2"></i><span app-data-value="request.availability"></span></div>
+                <div><i class="bi bi-camera-video me-2"></i>{{request.format.value}}</div>
+                <div><i class="bi bi-clock me-2"></i>{{request.duration}}</div>
+                <div><i class="bi bi-calendar me-2"></i>{{request.availability}}</div>
             </div>
         </div>
         <div>

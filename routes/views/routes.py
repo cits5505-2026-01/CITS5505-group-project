@@ -1,7 +1,10 @@
 from flask import Blueprint, redirect, render_template, request, url_for
+from routes.views.requests import requests_bp
 
 # Define the blueprint
 views_bp = Blueprint('views', __name__, url_prefix='/')
+views_bp.register_blueprint(requests_bp)
+
 # API to serve the frontend
 @views_bp.route("/")
 @views_bp.route("/index.html")

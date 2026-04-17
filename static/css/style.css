@@ -224,6 +224,12 @@ body {
     min-width: 360px;
 }
 
+@media (min-width: 992px) {
+  .page-right {
+    max-width: 360px;
+  }
+}
+
 .page-item {
     background: var(--card-bg2);
     border: 1px solid var(--border2);

@@ -1,9 +1,6 @@
 from flask_marshmallow import Marshmallow
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData
-from flask_migrate import Migrate
-# Import models here so Migrate can "see" them
-from models import User, UserSkill, Skill, Request, Offer 
 
 convention = {
     "ix": 'ix_%(column_0_label)s',
@@ -21,5 +18,3 @@ def init(app):
     # Setup database and migrations
     db.init_app(app)
     ma.init_app(app)
-    # Set up Flask-Migrate
-    migrate = Migrate(app, db, render_as_batch=True)

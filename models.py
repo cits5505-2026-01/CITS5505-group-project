@@ -1,4 +1,4 @@
-from database import db
+from configs.database import db
 from enum import Enum
 from sqlalchemy.sql import func
 from flask_login import current_user
@@ -108,6 +108,7 @@ class Request(db.Model, AuditMixin):
     availability = db.Column(db.String(255))
 
     offers = db.relationship('Offer', backref='request', lazy=True)
+    owner_skill = db.relationship(UserSkill, lazy=True)
 
 class Offer(db.Model, AuditMixin):
     __tablename__ = 'offer'

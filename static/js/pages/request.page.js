@@ -8,12 +8,6 @@ class RequestPage {
     }
 
     async render() {
-        this.request = await service.findRequestById(Number(this.params.requestId));
-        if (!this.request) {
-            window.location.hash = '404';
-            return;
-        }
-
         this.container.html(await this.template())  ;
         this.onInit();
     }
@@ -45,7 +39,7 @@ class RequestPage {
     }
 
     template() {
-        return $.get(`pages/request`);
+        return $.get(`requests/${Number(this.params.requestId)}`);
     }
 
     fetchData(obj, path) {

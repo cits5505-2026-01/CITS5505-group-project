@@ -1,4 +1,4 @@
-from database import ma
+from configs.database import ma
 from models import Offer, Skill, SkillCategory, User, Request, UserSkill
 
 BASE_FIELDS = (
@@ -23,8 +23,14 @@ class UserSchema(ma.SQLAlchemyAutoSchema):
             "bio",
             "address",
             "avatar",
+            "initials",
         ) + AUDIT_FIELDS
         load_instance = True
+
+    initials = ma.Method("get_initials")
+
+    def get_initials(self, obj):
+        return ''.join([s[0].upper() for s in obj.name.strip().split(r' ')[0:2]])
 
 class SkillCategorySchema(ma.SQLAlchemyAutoSchema):
     class Meta:
@@ -69,6 +75,7 @@ class OfferSchema(ma.SQLAlchemyAutoSchema):
 class RequestSchema(ma.SQLAlchemyAutoSchema):
     offers = ma.Nested(OfferSchema, many=True) 
     owner = ma.Nested(UserSchema)
+    owner_skill = ma.Nested(UserSkillSchema)
     class Meta:
         model = Request
         fields = BASE_FIELDS + (
@@ -79,6 +86,7 @@ class RequestSchema(ma.SQLAlchemyAutoSchema):
             "duration",
             "availability",
             "offers",
-            "owner"
+            "owner",
+            "owner_skill"
         ) + AUDIT_FIELDS
         load_instance = True

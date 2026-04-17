@@ -5,6 +5,8 @@ from werkzeug.exceptions import HTTPException
 from configs.environment import Environment
 import configs.database as database
 import configs.authentication as authentication
+import configs.migration as migration
+import configs.filter as filter
 from routes.api.routes import api_bp
 from routes.views.routes import views_bp
 
@@ -12,7 +14,9 @@ app = Flask(__name__)
 app.config.from_object(Environment)
 
 database.init(app)
+migration.init(app)
 authentication.init(app)
+filter.init(app)
 
 # Register blueprints
 app.register_blueprint(api_bp)
@@ -40,4 +44,5 @@ def handle_general_exception(e):
     }
     if current_app.debug:
         response["stacktrace"] = traceback.format_exc()
+    app.logger.error(e, stack_info=True, exc_info=True)
     return response, code
