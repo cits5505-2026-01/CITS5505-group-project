@@ -1,21 +1,8 @@
 export class HeaderComponent {
-    constructor(container) {
-        this.container = container;
-    }
-
-    template() {
-        return $.get(`components/header`);
-    }
-
-    async render() {
-        this.container.html(await this.template());
-        this.onInit();
-    }
-
     onInit() {
         $('#logout-btn').click(() => {
             sessionStorage.setItem('isLoggedIn', 'false');
-            window.location.hash = '#home';
+            window.location.url = '/home';
         });
     }
 
@@ -35,3 +22,7 @@ export class HeaderComponent {
         $('.navbar .nav-link-' + page).addClass('active')
     }
 }
+
+$(document).ready(() => {
+    new HeaderComponent().onInit();
+})
