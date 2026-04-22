@@ -7,6 +7,7 @@ import configs.database as database
 import configs.authentication as authentication
 import configs.migration as migration
 import configs.filter as filter
+import configs.csrf as csrf
 from routes.api.routes import api_bp
 from routes.views.routes import views_bp
 
@@ -17,6 +18,7 @@ database.init(app)
 migration.init(app)
 authentication.init(app)
 filter.init(app)
+csrf.init(app)
 
 # Register blueprints
 app.register_blueprint(api_bp)

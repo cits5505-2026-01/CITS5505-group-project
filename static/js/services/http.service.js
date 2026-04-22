@@ -4,7 +4,12 @@ class HttpService {
     }
 
     post(csrfToken, url, data) {
-        return $.post(url, data);
+        return $.ajax({
+            url,
+            type: 'POST',
+            headers: { 'X-CSRF-Token': csrfToken },
+            data
+        });
     }
 }
 
