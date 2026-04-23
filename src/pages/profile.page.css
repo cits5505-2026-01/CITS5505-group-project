@@ -1,61 +1,38 @@
-:root {
-  --ink: #0c1428;
-  --ink2: #162040;
-  --cream: #edf2fb;
-  --cool: #d4e4f7;
-  --accent: #2563eb;
-  --accent2: #0ea5e9;
-  --teal: #06b6d4;
-  --violet: #6366f1;
-  --muted: #5a7190;
-  --muted2: #8ba3c0;
-  --card-bg: #f5f9ff;
-  --card-bg2: #ffffff;
-  --border: #c0d4ee;
-  --border2: #dae6f5;
-  --glow: rgba(37,99,235,0.15);
-}
-
-* { margin: 0; padding: 0; box-sizing: border-box; }
-
-body {
-  font-family: 'DM Sans', sans-serif;
-  background: var(--cream);
-  color: var(--ink);
-  min-height: 100vh;
-}
-
 /* Base page switching */
 .page { display: none; min-height: 100vh; }
 .page.active { display: block; }
 
 
 /* Buttons used on profile page */
-.btn-outline-ink {
-  background: transparent;
-  color: var(--ink);
-  border: 2px solid var(--ink);
+.btn-outline-ink,
+.btn-outline-accent,
+.btn-accent {
   font-weight: 600;
   font-size: 0.85rem;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  padding: 0.65rem 1.6rem;
   border-radius: 2px;
   transition: all 0.2s;
+}
+
+.btn-outline-ink,
+.btn-outline-accent {
+  background: transparent;
+  border-width: 2px;
+  border-style: solid;
+}
+
+.btn-outline-ink {
+  color: var(--ink);
+  border-color: var(--ink);
+  padding: 0.65rem 1.6rem;
 }
 .btn-outline-ink:hover { background: var(--ink); color: #e8f0ff; }
 
 .btn-outline-accent {
-  background: transparent;
   color: var(--accent);
-  border: 2px solid var(--accent);
-  font-weight: 600;
-  font-size: 0.85rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
+  border-color: var(--accent);
   padding: 0.5rem 1.2rem;
-  border-radius: 2px;
-  transition: all 0.2s;
 }
 .btn-outline-accent:hover { background: var(--accent); color: #fff; }
 
@@ -75,8 +52,6 @@ body {
 }
 
 /* Profile page */
-#page-profile { background: var(--cream); }
-
 .profile-header {
   background: linear-gradient(135deg, var(--ink) 0%, #1e3a8a 60%, #1e1b4b 100%);
   color: #e8f0ff;
@@ -266,12 +241,7 @@ body {
   background: var(--accent);
   color: #fff;
   border: 2px solid var(--accent);
-  font-weight: 600;
-  font-size: 0.85rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
   padding: 0.5rem 1.2rem;
-  border-radius: 2px;
 }
 
 .btn-accent:hover {

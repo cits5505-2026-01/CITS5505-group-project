@@ -1,73 +1,37 @@
-   :root {
-      --ink: #0c1428;
-      --ink2: #162040;
-      --cream: #edf2fb;
-      --cool: #d4e4f7;
-      --accent: #2563eb;
-      --accent2: #0ea5e9;
-      --teal: #06b6d4;
-      --violet: #6366f1;
-      --muted: #5a7190;
-      --muted2: #8ba3c0;
-      --card-bg: #f5f9ff;
-      --card-bg2: #ffffff;
-      --border: #c0d4ee;
-      --border2: #dae6f5;
-      --glow: rgba(37,99,235,0.15);
-    }
-
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    body {
+     /* ─── BUTTONS ─── */
+    .btn-ink,
+    .btn-outline-ink,
+    .btn-white {
       font-family: 'DM Sans', sans-serif;
-      background: var(--cream);
-      color: var(--ink);
-      min-height: 100vh;
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      transition: all 0.2s;
     }
-
-  /* ─── BUTTONS ─── */
     .btn-ink {
-      background: var(--ink); color: #e8f0ff;
+      background: var(--ink);
+      color: #e8f0ff;
       border: 2px solid var(--ink);
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 600; font-size: 0.85rem;
-      letter-spacing: 0.05em; text-transform: uppercase;
+      font-weight: 600;
       padding: 0.65rem 1.6rem;
-      border-radius: 2px;
-      transition: all 0.2s;
     }
-    .btn-ink:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
-    .btn-accent {
-      background: var(--accent); color: #fff;
-      border: 2px solid var(--accent);
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 600; font-size: 0.85rem;
-      letter-spacing: 0.05em; text-transform: uppercase;
-      padding: 0.65rem 1.6rem;
-      border-radius: 2px;
-      transition: all 0.2s;
+    .btn-ink:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
     }
-    .btn-accent:hover { background: #1d4ed8; border-color: #1d4ed8; color: #fff; }
     .btn-outline-ink {
-      background: transparent; color: var(--ink);
+      background: transparent;
+      color: var(--ink);
       border: 2px solid var(--ink);
-      font-weight: 600; font-size: 0.85rem;
-      letter-spacing: 0.05em; text-transform: uppercase;
+      font-weight: 600;
       padding: 0.65rem 1.6rem;
-      border-radius: 2px;
-      transition: all 0.2s;
     }
-    .btn-outline-ink:hover { background: var(--ink); color: #e8f0ff; }
-    .btn-outline-accent {
-      background: transparent; color: var(--accent);
-      border: 2px solid var(--accent);
-      font-weight: 600; font-size: 0.85rem;
-      letter-spacing: 0.05em; text-transform: uppercase;
-      padding: 0.5rem 1.2rem;
-      border-radius: 2px;
-      transition: all 0.2s;
+    .btn-outline-ink:hover {
+      background: var(--ink);
+      color: #e8f0ff;
     }
-    .btn-outline-accent:hover { background: var(--accent); color: #fff; }
 
 
 /* ─── HOMEPAGE ─── */
@@ -291,13 +255,14 @@
     }
     .cta-banner p { font-size: 1.05rem; opacity: 0.7; margin-bottom: 2rem; position: relative; }
     .btn-white {
-      background: #fff; color: var(--accent);
+      background: #fff;
+      color: var(--accent);
       border: 2px solid #fff;
-      font-weight: 700; font-size: 0.85rem;
-      letter-spacing: 0.05em; text-transform: uppercase;
+      font-weight: 700;
       padding: 0.75rem 2rem;
-      border-radius: 2px;
-      transition: all 0.2s;
       position: relative;
     }
-    .btn-white:hover { background: transparent; color: #fff; }
+    .btn-white:hover {
+      background: transparent;
+      color: #fff;
+    }
