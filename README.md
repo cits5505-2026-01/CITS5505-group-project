@@ -36,9 +36,12 @@ pip install -r requirements.txt
 3. Optional: create a `.env` file in the project root to override configuration values. Example:
 
 ```env
-SQLALCHEMY_DATABASE_URI=sqlite:///database.db
-SQLALCHEMY_ECHO=false
-FLASK_DEBUG=true
+SQLALCHEMY_DATABASE_URI = 'sqlite:///database.db'
+SQLALCHEMY_TRACK_MODIFICATIONS = False
+SQLALCHEMY_ECHO = False
+FLASK_DEBUG=False
+WTF_CSRF_SECRET_KEY=$DEFINE-YOUR-OWN-KEY$
+SECRET_KEY=$DEFINE-YOUR-OWN-KEY$
 ```
 
 4. Apply the database migration:
