@@ -1,5 +1,4 @@
 from flask import Blueprint, request
-from sqlalchemy.orm import selectinload
 
 from app.extensions import db
 from app.forms import RequestForm
@@ -14,7 +13,7 @@ request_schema = RequestSchema()
 @requests_api_bp.route("/", methods=["POST"])
 def update_request():
     dto = RequestForm(obj=request.form)
-    entity = Request.query.get_or_404(dto.id.data)
+    entity = db.get_or_404(Request, dto.id.data)
     entity.title = dto.title.data
     entity.description = dto.description.data
     entity.format = SessionFormat(dto.format.data)

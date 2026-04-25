@@ -1,8 +1,8 @@
 from flask import Blueprint, render_template
-from sqlalchemy.orm import selectinload
 
+from app.extensions import db
 from app.forms import RequestForm
-from app.models import Offer, Request, Skill
+from app.models import Request
 
 requests_views_bp = Blueprint("requests_views", __name__, url_prefix="/requests")
 
@@ -18,7 +18,7 @@ def get_requests():
 
 @requests_views_bp.route("/<int:request_id>", methods=["GET"])
 def get_request(request_id):
-    selected_request = Request.query.get_or_404(request_id)
+    selected_request = db.get_or_404(Request, request_id)
     return render_template(
         "pages/request.page.html",
         request=selected_request,
@@ -30,6 +30,6 @@ def get_request(request_id):
 
 @requests_views_bp.route("/<int:request_id>/edit", methods=["GET"])
 def get_request_edit_modal(request_id):
-    selected_request = Request.query.get_or_404(request_id)
+    selected_request = db.get_or_404(Request, request_id)
     form = RequestForm(obj=selected_request)
     return render_template("modals/request.modal.html", form=form)
