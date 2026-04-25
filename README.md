@@ -101,7 +101,7 @@ flask db upgrade
 5. Optional: seed the database with dummy data:
 
 ```bash
-python scripts/seed_dummy_data.py
+python -m scripts.seed_dummy_data
 ```
 
 6. Start the Flask application:

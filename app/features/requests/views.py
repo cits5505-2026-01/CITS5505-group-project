@@ -2,7 +2,7 @@ from flask import Blueprint, render_template
 from sqlalchemy.orm import selectinload
 
 from app.forms import RequestForm
-from app.models import Offer, Request, Skill, UserSkill
+from app.models import Offer, Request, Skill
 
 requests_views_bp = Blueprint("requests_views", __name__, url_prefix="/requests")
 
@@ -18,11 +18,7 @@ def get_requests():
 
 @requests_views_bp.route("/<int:request_id>", methods=["GET"])
 def get_request(request_id):
-    selected_request = Request.query.options(
-        selectinload(Request.owner),
-        selectinload(Request.offers).selectinload(Offer.offerer).selectinload(UserSkill.user),
-        selectinload(Request.offers).selectinload(Offer.offerer).selectinload(UserSkill.skill).selectinload(Skill.category),
-    ).get_or_404(request_id)
+    selected_request = Request.query.get_or_404(request_id)
     return render_template(
         "pages/request.page.html",
         request=selected_request,

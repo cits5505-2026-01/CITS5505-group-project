@@ -1,17 +1,13 @@
 from .request import (
     OfferSchema,
     RequestSchema,
-    SkillCategorySchema,
     SkillSchema,
-    UserSchema,
-    UserSkillSchema,
+    UserSchema
 )
 
 __all__ = [
     "OfferSchema",
     "RequestSchema",
-    "SkillCategorySchema",
     "SkillSchema",
     "UserSchema",
-    "UserSkillSchema",
 ]

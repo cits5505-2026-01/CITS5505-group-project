@@ -1,19 +1,18 @@
 import random
+import traceback
 
 from faker import Faker
 from sqlalchemy import delete
 
+from run import app
 from app.extensions import db
-from app import app
 from app.models import (
     Offer,
     Request,
     RequestStatus,
     SessionFormat,
     Skill,
-    SkillCategory,
     User,
-    UserSkill,
     SkillLevel,
 )
 
@@ -37,9 +36,7 @@ def audit_fields(user=None):
 def clear_data():
     session.execute(delete(Offer))
     session.execute(delete(Request))
-    session.execute(delete(UserSkill))
     session.execute(delete(Skill))
-    session.execute(delete(SkillCategory))
     session.execute(delete(User))
 
 
@@ -61,50 +58,26 @@ def create_users(count):
     session.flush()
     return users
 
-
-def create_skills(count):
-    category_names = ["Programming", "Design", "Writing", "Business"]
-    categories = [
-        SkillCategory(name=name, **audit_fields())
-        for name in category_names
-    ]
-    session.add_all(categories)
-    session.flush()
-
-    skills = []
-    for _ in range(count):
-        skill = Skill(
-            name=f"{faker.job()} {faker.word().title()}",
-            category_id=random.choice(categories).id,
-            **audit_fields(),
-        )
-        skills.append(skill)
-
-    session.add_all(skills)
-    session.flush()
-    return skills
-
-
-def create_user_skills(users, skills):
+def create_skills(users, count):
     user_skills = []
     levels = list(SkillLevel)
 
     for user in users:
-        assigned_skills = random.sample(skills, k=min(3, len(skills)))
-        for skill in assigned_skills:
-            user_skill = UserSkill(
+        for index in range(count):
+            skill = Skill(
                 user_id=user.id,
-                skill_id=skill.id,
+                name=faker.text(max_nb_chars=20),
+                description = faker.text(max_nb_chars=120),
                 level=random.choice(levels),
             )
-            user_skills.append(user_skill)
+            user_skills.append(skill)
 
     session.add_all(user_skills)
     session.flush()
     return user_skills
 
 
-def create_requests(count, users, user_skills):
+def create_requests(count, users, skills):
     requests = []
     statuses = list(RequestStatus)
     formats = list(SessionFormat)
@@ -112,7 +85,7 @@ def create_requests(count, users, user_skills):
     for _ in range(count):
         owner = random.choice(users)
         owner_skill_options = [
-            user_skill for user_skill in user_skills if user_skill.user_id == owner.id
+            user_skill for user_skill in skills if user_skill.user_id == owner.id
         ]
         request = Request(
             owner_id=owner.id,
@@ -142,12 +115,12 @@ def create_offers(count, users, requests):
             continue
 
         skills = random.choice(offer_candidates).skills
-        offerer = random.choice(skills)
+        offer_skill = random.choice(skills)
         offer = Offer(
-            offerer_id=offerer.id,
+            offer_skill_id=offer_skill.id,
             request_id=request.id,
             message=faker.paragraph(nb_sentences=3),
-            **audit_fields(offerer.user),
+            **audit_fields(offer_skill.user),
         )
         offers.append(offer)
 
@@ -160,11 +133,10 @@ def main():
     try:
         clear_data()
         users = create_users(USER_COUNT)
-        skills = create_skills(SKILL_COUNT)
-        user_skills = create_user_skills(users, skills)
-        requests = create_requests(REQUEST_COUNT, users, user_skills)
+        skills = create_skills(users, SKILL_COUNT)
+        requests = create_requests(REQUEST_COUNT, users, skills)
         offers = create_offers(OFFER_COUNT, users, requests)
-        session.commit()
+        session.rollback()
         print(
             f"Seeded {len(users)} users, {len(skills)} skills, "
             f"{len(requests)} requests, and {len(offers)} offers."
@@ -172,6 +144,7 @@ def main():
     except Exception as exc:
         session.rollback()
         print(f"Something happened while seeding data: {exc}")
+        print(traceback.format_exc())
 
 
 with app.app_context():
