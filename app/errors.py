@@ -30,7 +30,7 @@ def register_error_handlers(app):
             css_file="/css/pages/error-404.page.css",
             js_file="/js/pages/error-404.page.js",
             main_class='error-404'
-        )
+        ), 404
 
     @app.errorhandler(Exception)
     def handle_exception(error):
