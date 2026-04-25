@@ -1,15 +1,15 @@
 import traceback
 
-from flask import Flask, current_app, redirect, render_template, request, url_for
+from flask import Flask, current_app, redirect, request, url_for
 from werkzeug.exceptions import HTTPException
 import configs.environment as environment
 import configs.database as database
 import configs.authentication as authentication
 import configs.migration as migration
-import configs.filter as filter
+import configs.view_filter as view_filter
 import configs.csrf as csrf
-from routes.api.routes import api_bp
-from routes.views.routes import views_bp
+from routes.api import api_bp
+from routes.views import views_bp
 
 app = Flask(__name__)
 
@@ -17,7 +17,7 @@ environment.init(app)
 database.init(app)
 migration.init(app)
 authentication.init(app)
-filter.init(app)
+view_filter.init(app)
 csrf.init(app)
 
 # Register blueprints
