@@ -9,24 +9,21 @@ from app.templating import init_template_filters
 
 
 def create_app():
-    app = Flask(
+    flask_app = Flask(
         __name__,
         instance_relative_config=True,
         template_folder="../templates",
         static_folder="../static",
     )
-    app.config.from_object(Config)
+    flask_app.config.from_object(Config)
 
-    init_extensions(app)
-    init_template_filters(app)
+    init_extensions(flask_app)
+    init_template_filters(flask_app)
 
     api_bp = create_api_blueprint()
     views_bp = create_pages_blueprint()
-    app.register_blueprint(api_bp)
-    app.register_blueprint(views_bp)
+    flask_app.register_blueprint(api_bp)
+    flask_app.register_blueprint(views_bp)
 
-    register_error_handlers(app)
-    return app
-
-
-app = create_app()
+    register_error_handlers(flask_app)
+    return flask_app
