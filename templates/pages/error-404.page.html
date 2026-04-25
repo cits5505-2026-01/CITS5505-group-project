@@ -1,4 +1,5 @@
-<link rel="stylesheet" href="src/pages/error-404.page.css">
+{% extends 'pages/base.page.html' %}
+{% block main %}
 <section class="d-flex flex-column align-items-center justify-content-center text-center">
     <div class="error-code">404</div>
     <div class="error-name">Page not found</div>
@@ -9,3 +10,4 @@
         <a id="btn-go-back" class="app-btn btn-outline-ink"><i class="bi bi-arrow-left me-2"></i>Go back</a>
     </div>
 </section>
+{% endblock %}

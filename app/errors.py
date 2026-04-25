@@ -1,6 +1,6 @@
 import traceback
 
-from flask import current_app, redirect, request, url_for
+from flask import current_app, redirect, render_template, request, url_for
 from werkzeug.exceptions import HTTPException
 
 
@@ -23,9 +23,14 @@ def handle_general_exception(error):
 def register_error_handlers(app):
     @app.errorhandler(404)
     def not_found(error):
-        if request.path.startswith("/api/") or request.accept_mimetypes.accept_json:
+        if request.path.startswith("/api/"):
             return handle_general_exception(error)
-        return redirect(url_for("views.index", _anchor=404))
+        return render_template(
+            "pages/error-404.page.html",
+            css_file="/css/pages/error-404.page.css",
+            js_file="/js/pages/error-404.page.js",
+            main_class='error-404'
+        )
 
     @app.errorhandler(Exception)
     def handle_exception(error):

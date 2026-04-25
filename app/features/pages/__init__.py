@@ -48,10 +48,6 @@ def create_pages_blueprint():
         section = request.path.strip("/").split("/", 1)[0]
         return render_fragment(section, name)
 
-    @views_bp.route("/<page>")
-    def subpage(page):
-        return redirect(url_for("views.index", _anchor=page))
-
     views_bp.register_blueprint(requests_views_bp)
     return views_bp
 
