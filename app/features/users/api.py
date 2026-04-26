@@ -9,6 +9,3 @@ users_api_bp = Blueprint("users", __name__, url_prefix="/users")
 def get_users():
     users = User.query.order_by(User.id).all()
     return jsonify([{"id": user.id, "name": user.email} for user in users])
-
-
-__all__ = ["users_api_bp"]
