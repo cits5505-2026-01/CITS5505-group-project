@@ -9,9 +9,9 @@
             </div>
             <div id="header-logout-group" class="d-flex align-items-center">
                 <div class="d-flex align-items-center gap-2 text-center">
-                    <a class="nav-link nav-link-dashboard" href="/dashboard">Dashboard</a>
-                    <a class="nav-link nav-link-requests" href="/requests">Search Requests</a>
-                    <a class="nav-link nav-link-profile" href="/profile">My profile</a>
+                    <a class="nav-link nav-link-dashboard {{'active' if main_class=='dashboard' else ''}}" href="/dashboard">Dashboard</a>
+                    <a class="nav-link nav-link-requests {{'active' if main_class=='requests' else ''}}" href="/requests">Search Requests</a>
+                    <a class="nav-link nav-link-profile {{'active' if main_class=='profile' else ''}}" href="/profile">My profile</a>
                 </div>
                 <div class="horizontal-divider"></div>
                 <a id="logout-btn" class="app-btn btn-outline" href="javascript:void(0)" class="nav-link">Logout</a>
