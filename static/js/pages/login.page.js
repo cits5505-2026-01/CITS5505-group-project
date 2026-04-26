@@ -15,7 +15,7 @@ class LoginPage {
 
     async onSubmit() {
         const {csrf_token, ...data} = FormUtils.extractFormData(this.formElem);
-        const result = await httpService.post(csrf_token, '/login', data);
+        const result = await httpService.post(csrf_token, '/api/login', data);
         
         window.location.href = "/dashboard";
     }
