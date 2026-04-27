@@ -28,7 +28,9 @@ class UserSchema(ma.SQLAlchemyAutoSchema):
     initials = ma.Method("get_initials")
 
     def get_initials(self, obj):
-        return "".join([part[0].upper() for part in obj.name.strip().split(" ")[0:2]])
+        return "".join(
+            [part[0].upper() for part in obj.name.strip().split(" ")[0:2]]
+        )
 
 
 class SkillSchema(ma.SQLAlchemyAutoSchema):

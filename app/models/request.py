@@ -23,8 +23,16 @@ class Request(db.Model, EntityMixin, AuditMixin):
 class Offer(db.Model, EntityMixin, AuditMixin):
     __tablename__ = 'offer'
     id = db.Column(db.Integer, primary_key=True)
-    offer_skill_id = db.Column(db.Integer, db.ForeignKey('skill.id'), nullable=False)
-    request_id = db.Column(db.Integer, db.ForeignKey('request.id'), nullable=False)
+    offer_skill_id = db.Column(
+        db.Integer,
+        db.ForeignKey('skill.id'),
+        nullable=False,
+    )
+    request_id = db.Column(
+        db.Integer,
+        db.ForeignKey('request.id'),
+        nullable=False,
+    )
     message = db.Column(db.Text)
 
     offer_skill = db.relationship(Skill, lazy=True)

@@ -4,7 +4,11 @@ from app.extensions import db
 from app.forms import RequestForm
 from app.models import Request
 
-requests_views_bp = Blueprint("requests_views", __name__, url_prefix="/requests")
+requests_views_bp = Blueprint(
+    "requests_views",
+    __name__,
+    url_prefix="/requests",
+)
 
 
 @requests_views_bp.route("/", methods=["GET"])

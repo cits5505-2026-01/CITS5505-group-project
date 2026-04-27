@@ -11,7 +11,9 @@ def handle_general_exception(error):
 
     response = {
         "code": code,
-        "message": str(error) if code != 500 else "An internal server error occurred.",
+        "message": (
+            str(error) if code != 500 else "An internal server error occurred."
+        ),
     }
     if current_app.debug:
         response["stacktrace"] = traceback.format_exc()

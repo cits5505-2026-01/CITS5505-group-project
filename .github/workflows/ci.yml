@@ -30,7 +30,7 @@ jobs:
 
     - name: Lint with flake8 - Quality & Complexity Check
       run: |
-        flake8 . --count --max-complexity=10 --max-line-length=127 --statistics
+        flake8 . --count --max-complexity=10 --statistics
 
     - name: Build/Run Smoke Test
       env:

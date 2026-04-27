@@ -86,11 +86,17 @@ def create_requests(count, users, skills):
     for _ in range(count):
         owner = random.choice(users)
         owner_skill_options = [
-            user_skill for user_skill in skills if user_skill.user_id == owner.id
+            user_skill
+            for user_skill in skills
+            if user_skill.user_id == owner.id
         ]
         request = Request(
             owner_id=owner.id,
-            owner_skill_id=random.choice(owner_skill_options).id if owner_skill_options else None,
+            owner_skill_id=(
+                random.choice(owner_skill_options).id
+                if owner_skill_options
+                else None
+            ),
             status=random.choice(statuses),
             format=random.choice(formats),
             title=faker.sentence(nb_words=6),
@@ -111,7 +117,9 @@ def create_offers(count, users, requests):
 
     for _ in range(count):
         request = random.choice(requests)
-        offer_candidates = [user for user in users if user.id != request.owner_id]
+        offer_candidates = [
+            user for user in users if user.id != request.owner_id
+        ]
         if not offer_candidates:
             continue
 
