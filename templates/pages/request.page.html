@@ -13,7 +13,7 @@
                 <div><i class="bi bi-person me-2"></i>{{ request.owner.name}}</div>
                 <div><i class="bi bi-geo-alt me-2"></i>{{ request.owner.address}}</div>
                 <div><i class="bi bi-calendar3 me-2"></i>Posted {{ request.created_at.strftime('%d/%m/%Y')  }}</div>
-                <div class="request-status status-{{ request.status.value|lower }}">{{ request.status.value }}</div>
+                <div class="request-status status-{{ request.status |format_request_status }}">{{ request.status.value }}</div>               
             </div>
         </div>
         <div>

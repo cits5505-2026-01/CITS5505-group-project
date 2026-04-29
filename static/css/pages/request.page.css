@@ -12,6 +12,26 @@
     color: #0369a1;
 }
 
+.request-status.status-pending {
+    background: #d7e1eb;
+    color: #6c757d;
+}
+
+.request-status.status-in-progress {
+    background: #fef3c7;
+    color: #b45309;
+}
+
+.request-status.status-completed {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.request-status.status-cancelled {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
 /* TODO Add css class for different status  */
 
 .offer-card {
