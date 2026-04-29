@@ -178,3 +178,12 @@
     t.classList.add('show');
     setTimeout(() => t.classList.remove('show'), 3500);
   }
+
+  // Expose functions to window so they can be called from inline onclick handlers
+  window.openAddSkillModal = openAddSkillModal;
+  window.closeModal = closeModal;
+  window.selectLevel = selectLevel;
+  window.saveSkill = saveSkill;
+  window.editSkill = editSkill;
+  window.deleteSkill = deleteSkill;
+  window.openEditProfileModal = openEditProfileModal;
