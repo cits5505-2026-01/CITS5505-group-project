@@ -20,8 +20,9 @@ def render_template_with_class(
     )
 
 
-def render_fragment(section, name):
-    return render_template(f"{section}/{name}.{section[:-1]}.html")
+def render_fragment(section, name, **addition_variables):
+    return render_template(f"{section}/{name}.{section[:-1]}.html",
+                           **addition_variables)
 
 
 def create_public_views_blueprint():
@@ -75,7 +76,7 @@ def create_private_views_blueprint():
     @private_views_bp.route("/modals/<name>", methods=['GET'])
     def render_section(name):
         section = request.path.strip("/").split("/", 1)[0]
-        return render_fragment(section, name)
+        return render_fragment(section, name, **request.args.to_dict())
 
     private_views_bp.register_blueprint(requests_views_bp)
     return private_views_bp
