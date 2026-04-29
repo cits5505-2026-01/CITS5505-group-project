@@ -1,5 +1,5 @@
 from flask import Blueprint, redirect, render_template, request, url_for
-from flask_login import login_required, logout_user
+from flask_login import login_required, logout_user, current_user
 
 from app.features.requests.views import requests_views_bp
 from app.forms.login import LoginForm
@@ -34,6 +34,8 @@ def create_public_views_blueprint():
 
     @public_views_bp.route("/login", methods=['GET'])
     def login():
+        if current_user.is_authenticated:
+            return redirect(url_for('private.dashboard'))
         return render_template_with_class('login', form=LoginForm())
 
     @public_views_bp.route("/register", methods=['GET'])
