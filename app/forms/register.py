@@ -8,7 +8,10 @@ class RegisterForm(FlaskForm):
         "Name",
         validators=[
             DataRequired(),
-            Length(min=3, message="Name must be at least 3 characters."),
+            Length(
+                min=3,
+                message="Name must be at least 3 characters.",
+            ),
         ],
     )
     email = StringField(
@@ -22,13 +25,20 @@ class RegisterForm(FlaskForm):
         "Password",
         validators=[
             DataRequired(),
-            Length(min=8, message="Password must be at least 8 characters."),
+            Length(
+                min=8,
+                message="Password must be at least 8 characters.",
+            ),
         ],
     )
     confirm_password = PasswordField(
         "Confirm Password",
         validators=[
             DataRequired(),
-            EqualTo("password", message="Confirm password must match password."),
+            EqualTo(
+                "password",
+                message="Confirm password must match password.",
+            ),
         ],
     )
+    
