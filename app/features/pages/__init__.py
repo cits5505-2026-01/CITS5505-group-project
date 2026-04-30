@@ -5,6 +5,7 @@ from app.features.requests.views import requests_views_bp
 from app.forms.login import LoginForm
 from app.forms.register import RegisterForm
 
+
 def render_template_with_class(
     page,
     has_css=True,
