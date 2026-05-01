@@ -87,6 +87,7 @@
     margin-top: 0.35rem;
     color: #dc3545;
     font-size: 0.82rem;
+    font-family: 'DM Sans', sans-serif;
 }
 
 .mb-3 {
@@ -115,7 +116,7 @@
     color: #fff;
 }
 
-.auth-switch-text {
+.register-page .auth-switch-text {
     margin-top: 1rem;
     font-size: 0.9rem;
     color: var(--muted);
@@ -123,12 +124,12 @@
     font-family: 'DM Sans', sans-serif;
 }
 
-.auth-link {
+.register-page .auth-link {
     color: var(--accent);
     text-decoration: none;
     font-weight: 600;
 }
 
-.auth-link:hover {
+.register-page .auth-link:hover {
     text-decoration: underline;
 }
