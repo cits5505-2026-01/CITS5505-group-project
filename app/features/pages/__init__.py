@@ -53,13 +53,13 @@ def create_public_views_blueprint():
     def register():
         if current_user.is_authenticated:
             return redirect(url_for("private.dashboard"))
-        
+
         form = RegisterForm()
-        
+
         if form.validate_on_submit():
             email = form.email.data.strip().lower()
             name = form.name.data.strip()
-            
+
             existing_user = User.query.filter_by(email=email).first()
             if existing_user:
                 form.email.errors.append("This email is already registered.")
@@ -68,19 +68,19 @@ def create_public_views_blueprint():
                     has_js=False,
                     form=form,
                 )
-            
+
             user = User(
                 name=name,
                 email=email,
                 )
             user.set_password(form.password.data)
-            
+
             db.session.add(user)
             db.session.commit()
-            
+
             flash("Register successful. Please log in.", "success")
             return redirect(url_for("public.login"))
-        
+
         return render_template_with_class(
             "register",
             has_js=False,
