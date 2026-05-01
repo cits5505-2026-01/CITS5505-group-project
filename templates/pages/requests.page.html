@@ -14,101 +14,138 @@
                         type="text"
                         name="query"
                         class="requests-search-input"
-                        placeholder="Search requests..."
-                        value="{{ query }}"
+                        placeholder="Search by title..."
+                        value="{{ search.query }}"
                     >
                 </div>
 
                 <div class="requests-toolbar-right">
-                    <button type="submit" name="status" value="" class="requests-filter-chip {% if not selected_status and not selected_level and not selected_format %}active{% endif %}">All</button>
-                    <button type="submit" name="status" value="Open" class="requests-filter-chip {% if selected_status == 'Open' %}active{% endif %}">Open</button>
-                    <button type="submit" name="level" value="Beginner" class="requests-filter-chip {% if selected_level == 'Beginner' %}active{% endif %}">Beginner</button>
-                    <button type="submit" name="format" value="Online" class="requests-filter-chip {% if selected_format == 'Online' %}active{% endif %}">Online</button>
+                    <select name="status" class="requests-select">
+                        <option value="">All status</option>
+                        <option value="OPEN" {% if search.status == "OPEN" %}selected{% endif %}>Open</option>
+                        <option value="PENDING" {% if search.status == "PENDING" %}selected{% endif %}>Pending</option>
+                    </select>
+
+                    <select name="level" class="requests-select">
+                        <option value="">All levels</option>
+                        <option value="BEGINNER" {% if search.level == "BEGINNER" %}selected{% endif %}>Beginner</option>
+                        <option value="INTERMEDIATE" {% if search.level == "INTERMEDIATE" %}selected{% endif %}>Intermediate</option>
+                        <option value="ADVANCED" {% if search.level == "ADVANCED" %}selected{% endif %}>Advanced</option>
+                    </select>
+
+                    <select name="format" class="requests-select">
+                        <option value="">All formats</option>
+                        <option value="ONLINE" {% if search.format == "ONLINE" %}selected{% endif %}>Online</option>
+                        <option value="OFFLINE" {% if search.format == "OFFLINE" %}selected{% endif %}>Offline</option>
+                        <option value="HYBRID" {% if search.format == "HYBRID" %}selected{% endif %}>Hybrid</option>
+                    </select>
+
+                    <button type="submit" class="app-btn btn-accent">Search</button>
+
+                    <a href="{{ url_for('requests_views.get_requests') }}" class="app-btn btn-outline">
+                        Reset
+                    </a>
                 </div>
             </form>
         </section>
 
-        {% if query or selected_status or selected_level or selected_format %}
-            {% if requests %}
-                <section class="requests-list">
-                    {% for item in requests %}
-                        <article class="requests-card">
-                            <div class="requests-card-top">
-                                <div class="requests-card-main">
-                                    <h2 class="requests-card-title">{{ item.title }}</h2>
-                                    <p class="requests-card-meta">
-                                        Wanted skill: {{ item.skill_to_learn }}
-                                        {% if item.format %} · Format: {{ item.format.value }}{% endif %}
-                                        {% if item.duration %} · Duration: {{ item.duration }}{% endif %}
-                                    </p>
-                                </div>
+        <section class="requests-summary">
+            <p class="requests-summary-text">
+                Total {{ pagination.total_items }} items, page {{ pagination.page }} of {{ pagination.total_pages }}
+            </p>
+        </section>
 
-                                <span class="request-status status-{{ item.status.value|lower|replace(' ', '-') }}">
-                                    {{ item.status.value }}
-                                </span>
+        {% if requests %}
+            <section class="requests-list">
+                {% for item in requests %}
+                    <article class="requests-card">
+                        <div class="requests-card-top">
+                            <div class="requests-card-main">
+                                <h2 class="requests-card-title">{{ item.title }}</h2>
+                                <p class="requests-card-meta">
+                                    Wanted skill: {{ item.skill_to_learn }}
+                                    {% if item.format %} · Format: {{ item.format.value }}{% endif %}
+                                    {% if item.duration %} · Duration: {{ item.duration }}{% endif %}
+                                </p>
                             </div>
 
-                            {% if item.description %}
-                                <p class="requests-card-desc">{{ item.description }}</p>
-                            {% endif %}
+                            <span class="request-status status-{{ item.status.value|lower|replace(' ', '-') }}">
+                                {{ item.status | format_request_status }}
+                            </span>
+                        </div>
 
-                            <div class="requests-card-tags">
-                                {% if item.owner_skill %}
-                                    <span class="skill-chip">{{ item.owner_skill.name }}</span>
-                                    {% if item.owner_skill.level %}
-                                        <span class="skill-chip">{{ item.owner_skill.level.value }}</span>
-                                    {% endif %}
+                        {% if item.description %}
+                            <p class="requests-card-desc">{{ item.description }}</p>
+                        {% endif %}
+
+                        <div class="requests-card-tags">
+                            {% if item.owner_skill %}
+                                <span class="skill-chip">{{ item.owner_skill.name }}</span>
+                                {% if item.owner_skill.level %}
+                                    <span class="skill-chip">{{ item.owner_skill.level.value }}</span>
                                 {% endif %}
-                            </div>
+                            {% endif %}
+                        </div>
 
-                            <div class="requests-card-footer">
-                                <div class="requests-owner">
-                                    <div class="mini-avatar avatar-36">
-                                        {{ item.owner.name[0] if item.owner and item.owner.name else "U" }}
-                                    </div>
-                                    <div>
-                                        <div class="offer-user">{{ item.owner.name if item.owner else "Unknown user" }}</div>
-                                        <div class="offer-skill">{{ item.format.value if item.format else "Flexible" }}</div>
+                        <div class="requests-card-footer">
+                            <div class="requests-owner">
+                                <div class="mini-avatar avatar-36">
+                                    {{ item.owner.name | get_initials }}
+                                </div>
+                                <div>
+                                    <div class="offer-user">{{ item.owner.name }}</div>
+                                    <div class="offer-skill">
+                                        {% if item.format %}{{ item.format.value }}{% endif %}
                                     </div>
                                 </div>
-
-                                <a href="{{ url_for('requests_views.get_request', request_id=item.id) }}" class="app-btn btn-accent app-btn-small">
-                                    View details
-                                </a>
                             </div>
-                        </article>
-                    {% endfor %}
-                </section>
 
-                <div class="requests-pagination">
-                    {% if has_prev %}
-                        <a
-                            class="app-btn btn-outline app-btn-small"
-                            href="{{ url_for('requests_views.get_requests', query=query, status=selected_status, level=selected_level, format=selected_format, offset=prev_offset) }}"
-                        >
-                            Previous
-                        </a>
-                    {% endif %}
+                            <a
+                                href="{{ url_for('requests_views.get_request', request_id=item.id) }}"
+                                class="app-btn btn-accent app-btn-small"
+                            >
+                                View details
+                            </a>
+                        </div>
+                    </article>
+                {% endfor %}
+            </section>
 
-                    {% if has_next %}
-                        <a
-                            class="app-btn btn-accent app-btn-small"
-                            href="{{ url_for('requests_views.get_requests', query=query, status=selected_status, level=selected_level, format=selected_format, offset=next_offset) }}"
-                        >
-                            Next
-                        </a>
-                    {% endif %}
-                </div>
-            {% else %}
-                <section class="page-item requests-empty">
-                    <h2 class="item-header">No results found</h2>
-                    <p class="requests-empty-text">Try another keyword or filter.</p>
-                </section>
-            {% endif %}
+            <div class="requests-pagination">
+                {% if pagination.has_prev %}
+                    <a
+                        class="app-btn btn-outline app-btn-small"
+                        href="{{ url_for('requests_views.get_requests',
+                            query=search.query,
+                            status=search.status,
+                            level=search.level,
+                            format=search.format,
+                            page=pagination.prev_page
+                        ) }}"
+                    >
+                        Previous
+                    </a>
+                {% endif %}
+
+                {% if pagination.has_next %}
+                    <a
+                        class="app-btn btn-accent app-btn-small"
+                        href="{{ url_for('requests_views.get_requests',
+                            query=search.query,
+                            status=search.status,
+                            level=search.level,
+                            format=search.format,
+                            page=pagination.next_page
+                        ) }}"
+                    >
+                        Next
+                    </a>
+                {% endif %}
+            </div>
         {% else %}
             <section class="page-item requests-empty">
-                <h2 class="item-header">Start searching</h2>
-                <p class="requests-empty-text">Use a keyword or filter chip to search for open requests.</p>
+                <h2 class="item-header">No requests found</h2>
+                <p class="requests-empty-text">Try another search condition.</p>
             </section>
         {% endif %}
     </div>
