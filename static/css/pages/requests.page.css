@@ -149,3 +149,38 @@
         width: 100%;
     }
 }
+
+.requests-search-form {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.requests-empty {
+    text-align: center;
+    padding: 2rem 1.5rem;
+}
+
+.requests-empty-text {
+    color: var(--muted);
+    margin-top: 0.5rem;
+}
+
+.requests-pagination {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+}
+
+.requests-filter-chip {
+    min-width: 84px;
+    text-align: center;
+}
+
+.requests-filter-chip.active {
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
