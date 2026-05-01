@@ -1,5 +1,11 @@
 from flask_wtf import FlaskForm
-from wtforms import HiddenField, SelectField, StringField, TextAreaField, validators
+from wtforms import (
+    HiddenField,
+    SelectField,
+    StringField,
+    TextAreaField,
+    validators,
+)
 
 from app.models.enums import SkillLevel
 

@@ -39,7 +39,7 @@ def update_skill(skill_id):
         raise ValidationException(dto.errors)
 
     entity = db.get_or_404(Skill, skill_id)
-    
+
     # Ensure user owns this skill
     if entity.user_id != current_user.id:
         raise NotAuthorizedActionException()
@@ -57,7 +57,7 @@ def update_skill(skill_id):
 @skills_api_bp.route("/<int:skill_id>/delete", methods=["POST"])
 def delete_skill(skill_id):
     entity = db.get_or_404(Skill, skill_id)
-    
+
     # Ensure user owns this skill before deletion
     if entity.user_id != current_user.id:
         raise NotAuthorizedActionException()
