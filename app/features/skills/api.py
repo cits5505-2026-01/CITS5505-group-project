@@ -54,7 +54,7 @@ def update_skill(skill_id):
 
 
 # Delete a specific skill
-@skills_api_bp.route("/<int:skill_id>/delete", methods=["POST"])
+@skills_api_bp.route("/<int:skill_id>", methods=["DELETE"])
 def delete_skill(skill_id):
     entity = db.get_or_404(Skill, skill_id)
 

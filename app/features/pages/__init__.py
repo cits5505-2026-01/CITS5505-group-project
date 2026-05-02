@@ -3,6 +3,9 @@ from flask_login import login_required, logout_user, current_user
 
 from app.features.requests.views import requests_views_bp
 from app.forms.login import LoginForm
+from app.forms.skill import SkillForm
+from app.models import Skill
+from app.extensions import db
 
 
 def render_template_with_class(
@@ -68,9 +71,8 @@ def create_private_views_blueprint():
 
     @private_views_bp.route("/profile", methods=['GET'])
     def profile():
-        from app.models import Skill
-        skills = Skill.query.filter_by(user_id=current_user.id).all()
-        return render_template_with_class("profile", skills=skills)
+        skills = Skill.query.filter_by(user_id=current_user.id).order_by(Skill.id.desc()).all()
+        return render_template_with_class("profile", skills=skills, form=SkillForm())
 
     @private_views_bp.route("/modals/message", methods=['GET'])
     def display_message_modal():
@@ -85,6 +87,19 @@ def create_private_views_blueprint():
             "modals/confirmation.modal.html",
             message=request.args.get('message', '')
         )
+
+    @private_views_bp.route("/modals/skill", methods=['GET'])
+    def display_skill_modal():
+        skill_id = request.args.get('skill_id')
+        if skill_id:
+            entity = db.get_or_404(Skill, skill_id)
+            form = SkillForm(obj=entity)
+            is_new = False
+        else:
+            form = SkillForm()
+            is_new = True
+            
+        return render_template("modals/skill.modal.html", form=form, is_new=is_new)
 
     # TODO served as temporary to load the pages without adding new routes
     # To be replaced with actual routes

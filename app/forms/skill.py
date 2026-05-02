@@ -12,6 +12,7 @@ from app.models.enums import SkillLevel
 
 class SkillForm(FlaskForm):
     id = HiddenField('id')
+    version = HiddenField('version')
     name = StringField(
         'Skill name',
         validators=[
