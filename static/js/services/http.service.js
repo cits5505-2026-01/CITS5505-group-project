@@ -1,9 +1,17 @@
 class HttpService {
+    spinnerElement = null;
+    constructor() {
+        this.spinnerElement = $('#spinner');
+    }
     get(url) {
-        return $.get(url);
+        return this.displaySpinner($.get(url));
     }
 
-    async post(csrfToken, url, data) {
+    post(csrfToken, url, data) {
+        return this.displaySpinner(this.doPost(csrfToken, url, data));
+    }
+
+    async doPost(csrfToken, url, data) {
         try {
             return await $.ajax({
                 url,
@@ -20,6 +28,13 @@ class HttpService {
             }
             throw error;
         }
+    }
+
+    displaySpinner(promise) {
+        this.spinnerElement.show();
+        return promise.always(() => {
+            this.spinnerElement.hide();
+        });
     }
 }
 
