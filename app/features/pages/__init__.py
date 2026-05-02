@@ -1,4 +1,4 @@
-from flask import Blueprint, redirect, render_template, request, url_for
+from flask import Blueprint, redirect, render_template, request, url_for, current_app
 from flask_login import login_required, logout_user, current_user
 
 from app.features.requests.views import requests_views_bp
@@ -71,8 +71,14 @@ def create_private_views_blueprint():
 
     @private_views_bp.route("/profile", methods=['GET'])
     def profile():
-        skills = Skill.query.filter_by(user_id=current_user.id).order_by(Skill.id.desc()).all()
-        return render_template_with_class("profile", skills=skills, form=SkillForm())
+        skills = (
+            Skill.query.filter_by(user_id=current_user.id)
+            .order_by(Skill.id.desc())
+            .all()
+        )
+        return render_template_with_class(
+            "profile", skills=skills, form=SkillForm()
+        )
 
     @private_views_bp.route("/modals/message", methods=['GET'])
     def display_message_modal():
@@ -98,8 +104,19 @@ def create_private_views_blueprint():
         else:
             form = SkillForm()
             is_new = True
-            
-        return render_template("modals/skill.modal.html", form=form, is_new=is_new)
+
+        return render_template(
+            "modals/skill.modal.html", form=form, is_new=is_new
+        )
+
+    @private_views_bp.route("/modals/error", methods=['GET'])
+    def display_error_modal():
+        return render_template(
+            "modals/error.modal.html",
+            message=request.args.get('message', ''),
+            stacktrace=request.args.get('stacktrace', ''),
+            debug=current_app.debug
+        )
 
     # TODO served as temporary to load the pages without adding new routes
     # To be replaced with actual routes
